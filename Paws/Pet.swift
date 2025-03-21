@@ -19,3 +19,13 @@ final class Pet {
         self.photo = photo
     }
 }
+
+extension Pet {
+    @MainActor
+    static var preview: ModelContainer {
+        let configuration = ModelConfiguration(isStoredInMemoryOnly: true)
+        let container = try! ModelContainer(for: Pet.self, configurations: configuration)
+
+        return container
+    }
+}
