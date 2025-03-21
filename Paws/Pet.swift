@@ -26,6 +26,15 @@ extension Pet {
         let configuration = ModelConfiguration(isStoredInMemoryOnly: true)
         let container = try! ModelContainer(for: Pet.self, configurations: configuration)
 
+        container.mainContext.insert(Pet(name: "Rexy"))
+        container.mainContext.insert(Pet(name: "Bella"))
+        container.mainContext.insert(Pet(name: "Charlie"))
+        container.mainContext.insert(Pet(name: "Daisy"))
+        container.mainContext.insert(Pet(name: "Fido"))
+        container.mainContext.insert(Pet(name: "Gus"))
+        container.mainContext.insert(Pet(name: "Mimi"))
+        container.mainContext.insert(Pet(name: "Luna"))
+
         return container
     }
 }
