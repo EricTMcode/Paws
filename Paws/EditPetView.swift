@@ -20,6 +20,12 @@ struct EditPetView: View {
             if let imageData = pet.photo {
                 if let image = UIImage(data: imageData) {
                     Image(uiImage: image)
+                        .resizable()
+                        .scaledToFit()
+                        .clipShape(RoundedRectangle(cornerRadius: 8, style: .circular))
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 300)
+                        .padding(.top)
+
                 }
             } else {
                 CustomContentUnavailableView(
@@ -59,6 +65,11 @@ struct EditPetView: View {
         .listStyle(.plain)
         .navigationTitle("Edit \(pet.name)")
         .navigationBarTitleDisplayMode(.inline)
+        .onChange(of: photosPickerItem) {
+            Task {
+                pet.photo = try? await photosPickerItem?.loadTransferable(type: Data.self)
+            }
+        }
     }
 }
 
