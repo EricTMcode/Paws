@@ -22,6 +22,7 @@ struct ContentView: View {
     ]
 
     private func addPet() {
+        isEditing = false
         let pet = Pet(name: "Best Friend")
         modelContext.insert(pet)
         path = [pet]
@@ -63,9 +64,14 @@ struct ContentView: View {
                                 .background(.ultraThinMaterial)
                                 .clipShape(RoundedRectangle(cornerRadius: 8, style: .circular))
                                 .overlay(alignment: .topTrailing) {
-                                    if !isEditing {
+                                    if isEditing {
                                         Menu {
-
+                                            Button("Delete", systemImage: "trash", role: .destructive) {
+                                                withAnimation {
+                                                    modelContext.delete(pet)
+                                                    try? modelContext.save()
+                                                }
+                                            }
                                         } label: {
                                             Image(systemName: "trash.circle.fill")
                                                 .resizable()
