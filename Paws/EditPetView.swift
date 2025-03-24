@@ -11,6 +11,8 @@ import PhotosUI
 
 struct EditPetView: View {
 
+    @Environment(\.dismiss) private var dismiss
+
     @Bindable var pet: Pet
     @State private var photosPickerItem: PhotosPickerItem?
 
